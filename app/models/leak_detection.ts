@@ -23,10 +23,16 @@ export default class LeakDetection extends BaseModel {
   declare address: string
 
   @column()
-  declare city: string
+  declare city: string | null
 
   @column()
-  declare postalCode: string
+  declare postalCode: string | null
+
+  @column()
+  declare folderId: string | null
+
+  @column()
+  declare stripeCheckoutSessionId: string | null
 
   @column()
   declare leakType: 'roof' | 'terrace' | 'wall' | 'basement' | 'other'

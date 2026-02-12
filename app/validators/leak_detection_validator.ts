@@ -7,12 +7,14 @@ export const createLeakDetectionValidator = vine.compile(
     email: vine.string().email().maxLength(254),
     phone: vine.string().trim().minLength(10).maxLength(20),
     address: vine.string().trim().minLength(5).maxLength(300),
-    city: vine.string().trim().minLength(2).maxLength(100),
-    postalCode: vine.string().trim().regex(/^\d{5}$/),
+    city: vine.string().trim().minLength(2).maxLength(100).optional(),
+    postalCode: vine.string().trim().regex(/^\d{5}$/).optional(),
     leakType: vine.enum(['roof', 'terrace', 'wall', 'basement', 'other']),
     severity: vine.enum(['minor', 'moderate', 'severe', 'emergency']),
     description: vine.string().trim().maxLength(3000).optional(),
     photoPaths: vine.array(vine.string().maxLength(500)).maxLength(2).optional(),
+    folderId: vine.string().uuid().optional(),
+    calendlyEventUri: vine.string().maxLength(500).optional(),
   })
 )
 

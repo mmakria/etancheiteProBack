@@ -1,4 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
+import { DateTime } from 'luxon'
 import LeakDetection from '#models/leak_detection'
 import { createLeakDetectionValidator, updateLeakDetectionValidator } from '#validators/leak_detection_validator'
 
@@ -7,8 +8,27 @@ export default class LeakDetectionsController {
    * POST /api/v1/leak-detections — Public: create a leak detection request
    */
   async store({ request, response }: HttpContext) {
-    const data = await request.validateUsing(createLeakDetectionValidator)
-    const detection = await LeakDetection.create(data)
+    const { calendlyEventUri, ...modelData } = await request.validateUsing(createLeakDetectionValidator)
+
+    let detection: LeakDetection
+
+    const payload = {
+      ...modelData,
+      ...(calendlyEventUri ? { calendlyEventId: calendlyEventUri } : {}),
+      paymentStatus: 'pending' as const,
+      amountCents: 25000,
+      status: 'submitted' as const,
+    }
+
+    if (modelData.folderId) {
+      detection = await LeakDetection.updateOrCreate(
+        { folderId: modelData.folderId },
+        payload
+      )
+    } else {
+      detection = await LeakDetection.create(payload)
+    }
+
     return response.created(detection)
   }
 
@@ -42,7 +62,11 @@ export default class LeakDetectionsController {
   async update({ params, request }: HttpContext) {
     const detection = await LeakDetection.findOrFail(params.id)
     const data = await request.validateUsing(updateLeakDetectionValidator)
-    detection.merge(data)
+    const { appointmentDate, ...rest } = data
+    detection.merge(rest)
+    if (appointmentDate) {
+      detection.appointmentDate = DateTime.fromISO(appointmentDate)
+    }
     await detection.save()
     return detection
   }

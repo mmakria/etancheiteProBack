@@ -16,6 +16,7 @@ const ContactsController = () => import('#controllers/contacts_controller')
 const RealisationsController = () => import('#controllers/realisations_controller')
 const CitiesController = () => import('#controllers/cities_controller')
 const UploadsController = () => import('#controllers/uploads_controller')
+const StripeController = () => import('#controllers/stripe_controller')
 const AuthController = () => import('#controllers/auth_controller')
 
 // Health check
@@ -41,6 +42,9 @@ router
 
     // File uploads — public
     router.post('/uploads', [UploadsController, 'store'])
+
+    // Stripe — create checkout session
+    router.post('/stripe/create-checkout-session', [StripeController, 'createCheckoutSession'])
 
     // Realisations — public read
     router.get('/realisations', [RealisationsController, 'index'])
@@ -105,7 +109,7 @@ router
 
 /*
 |--------------------------------------------------------------------------
-| Stripe Webhook (placeholder)
+| Stripe Webhook
 |--------------------------------------------------------------------------
 */
-// router.post('/webhooks/stripe', [StripeWebhooksController, 'handle'])
+router.post('/api/v1/webhooks/stripe', [StripeController, 'handleWebhook'])
