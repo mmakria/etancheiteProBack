@@ -1,0 +1,25 @@
+MAKRIA — Reçu de paiement
+==========================
+
+Paiement confirmé
+
+Bonjour {{ detection.firstName }},
+
+Votre paiement a été reçu avec succès. Voici votre reçu :
+
+Montant payé : {{ amountEuros }} €
+
+@if(detection.folderId)
+Référence : {{ detection.folderId.slice(0, 8) }}
+@end
+Prestation : Recherche de fuite — Détection non destructive
+Adresse : {{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}
+@if(detection.appointmentDate)
+Rendez-vous : {{ detection.appointmentDate.toFormat('dd/MM/yyyy HH:mm') }}
+@end
+
+Un technicien vous contactera prochainement pour confirmer les détails de votre rendez-vous. Conservez cet email comme justificatif de paiement.
+
+---
+Makria — Étanchéité & Aménagement
+Cet email a été envoyé à {{ detection.email }}

@@ -1,20 +1,27 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
+import mail from '@adonisjs/mail/services/main'
 import LeakDetection from '#models/leak_detection'
 import { createLeakDetectionValidator, updateLeakDetectionValidator } from '#validators/leak_detection_validator'
+import BookingConfirmationNotification from '#mails/booking_confirmation_notification'
+import AdminNewBookingNotification from '#mails/admin_new_booking_notification'
 
 export default class LeakDetectionsController {
   /**
    * POST /api/v1/leak-detections — Public: create a leak detection request
    */
   async store({ request, response }: HttpContext) {
-    const { calendlyEventUri, ...modelData } = await request.validateUsing(createLeakDetectionValidator)
+    const { appointmentDate, ...modelData } = await request.validateUsing(createLeakDetectionValidator)
 
     let detection: LeakDetection
 
+    const isNew = modelData.folderId
+      ? !(await LeakDetection.findBy('folderId', modelData.folderId))
+      : true
+
     const payload = {
       ...modelData,
-      ...(calendlyEventUri ? { calendlyEventId: calendlyEventUri } : {}),
+      ...(appointmentDate ? { appointmentDate: DateTime.fromISO(appointmentDate) } : {}),
       paymentStatus: 'pending' as const,
       amountCents: 25000,
       status: 'submitted' as const,
@@ -27,6 +34,15 @@ export default class LeakDetectionsController {
       )
     } else {
       detection = await LeakDetection.create(payload)
+    }
+
+    if (isNew) {
+      try {
+        await mail.send(new BookingConfirmationNotification(detection))
+        await mail.send(new AdminNewBookingNotification(detection))
+      } catch (error) {
+        console.error('Failed to send booking emails:', error)
+      }
     }
 
     return response.created(detection)

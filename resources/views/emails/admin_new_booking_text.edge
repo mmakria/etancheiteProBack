@@ -1,0 +1,32 @@
+MAKRIA — Admin — Nouveau dossier
+==================================
+
+Nouvelle demande de recherche de fuite
+
+Un nouveau dossier a été créé. Voici les détails :
+
+INFORMATIONS CLIENT
+-------------------
+Nom : {{ detection.firstName }} {{ detection.lastName }}
+Email : {{ detection.email }}
+Téléphone : {{ detection.phone }}
+Adresse : {{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}
+
+DÉTAILS DU DOSSIER
+------------------
+@if(detection.folderId)
+Référence : {{ detection.folderId.slice(0, 8) }}
+@end
+Type de fuite : {{ leakTypeLabels[detection.leakType] || detection.leakType }}
+Sévérité : {{ severityLabels[detection.severity] || detection.severity }}
+@if(detection.description)
+Description : {{ detection.description }}
+@end
+@if(detection.appointmentDate)
+Rendez-vous : {{ detection.appointmentDate.toFormat('dd/MM/yyyy HH:mm') }}
+@end
+Montant : 250,00 €
+Statut paiement : {{ paymentStatusLabels[detection.paymentStatus] || detection.paymentStatus }}
+
+---
+Notification automatique — Makria Admin

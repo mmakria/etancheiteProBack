@@ -1,7 +1,9 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import env from '#start/env'
 import Stripe from 'stripe'
+import mail from '@adonisjs/mail/services/main'
 import LeakDetection from '#models/leak_detection'
+import PaymentReceiptNotification from '#mails/payment_receipt_notification'
 
 const stripe = new Stripe(env.get('STRIPE_SECRET_KEY'))
 
@@ -90,6 +92,12 @@ export default class StripeController {
           detection.stripePaymentIntentId = session.payment_intent as string
           detection.amountCents = session.amount_total ?? 25000
           await detection.save()
+
+          try {
+            await mail.send(new PaymentReceiptNotification(detection))
+          } catch (error) {
+            console.error('Failed to send payment receipt:', error)
+          }
         }
       }
     }

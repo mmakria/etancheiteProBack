@@ -1,0 +1,25 @@
+MAKRIA — Recherche de fuite
+============================
+
+Votre demande a bien été enregistrée
+
+Bonjour {{ detection.firstName }},
+
+Nous avons bien reçu votre demande de recherche de fuite. Voici le récapitulatif de votre dossier :
+
+@if(detection.folderId)
+Référence : {{ detection.folderId.slice(0, 8) }}
+@end
+Type de fuite : {{ leakTypeLabels[detection.leakType] || detection.leakType }}
+Sévérité : {{ severityLabels[detection.severity] || detection.severity }}
+Adresse : {{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}
+@if(detection.appointmentDate)
+Rendez-vous : {{ detection.appointmentDate.toFormat('dd/MM/yyyy HH:mm') }}
+@end
+Montant : 250,00 €
+
+Vous allez recevoir un lien de paiement pour confirmer votre rendez-vous. Un technicien vous contactera ensuite pour finaliser les détails.
+
+---
+Makria — Étanchéité & Aménagement
+Cet email a été envoyé à {{ detection.email }}

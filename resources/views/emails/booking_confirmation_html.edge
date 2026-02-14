@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmation de votre demande</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: Inter, Arial, Helvetica, sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f5; padding: 32px 0;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; max-width: 600px; width: 100%;">
+          {{-- Header --}}
+          <tr>
+            <td style="background-color: #0a1628; padding: 32px 40px; text-align: center;">
+              <h1 style="color: #ffffff; font-size: 24px; font-weight: 900; margin: 0; line-height: 1.1;">Makria</h1>
+              <p style="color: #D97706; font-size: 14px; margin: 8px 0 0; font-weight: 600;">Recherche de fuite</p>
+            </td>
+          </tr>
+
+          {{-- Body --}}
+          <tr>
+            <td style="padding: 40px;">
+              <h2 style="color: #0a1628; font-size: 20px; font-weight: 900; margin: 0 0 16px; line-height: 1.1;">Votre demande a bien été enregistrée</h2>
+              <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 24px;">
+                Bonjour {{ detection.firstName }},<br><br>
+                Nous avons bien reçu votre demande de recherche de fuite. Voici le récapitulatif de votre dossier :
+              </p>
+
+              {{-- Info box --}}
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 24px;">
+                <tr>
+                  <td style="padding: 24px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                      @if(detection.folderId)
+                      <tr>
+                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0; width: 140px;">Référence</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.folderId.slice(0, 8) }}</td>
+                      </tr>
+                      @end
+                      <tr>
+                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0; width: 140px;">Type de fuite</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ leakTypeLabels[detection.leakType] || detection.leakType }}</td>
+                      </tr>
+                      <tr>
+                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Sévérité</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ severityLabels[detection.severity] || detection.severity }}</td>
+                      </tr>
+                      <tr>
+                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Adresse</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}</td>
+                      </tr>
+                      @if(detection.appointmentDate)
+                      <tr>
+                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Rendez-vous</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.appointmentDate.toFormat('dd/MM/yyyy HH:mm') }}</td>
+                      </tr>
+                      @end
+                      <tr>
+                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Montant</td>
+                        <td style="color: #D97706; font-size: 14px; font-weight: 700; padding: 4px 0;">250,00 &euro;</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 8px;">
+                Vous allez recevoir un lien de paiement pour confirmer votre rendez-vous. Un technicien vous contactera ensuite pour finaliser les détails.
+              </p>
+            </td>
+          </tr>
+
+          {{-- Footer --}}
+          <tr>
+            <td style="background-color: #f9fafb; padding: 24px 40px; border-top: 1px solid #e5e7eb;">
+              <p style="color: #6b7280; font-size: 12px; line-height: 1.5; margin: 0; text-align: center;">
+                Makria &mdash; Étanchéité & Aménagement<br>
+                Cet email a été envoyé à {{ detection.email }}
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

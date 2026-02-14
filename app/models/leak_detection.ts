@@ -46,9 +46,6 @@ export default class LeakDetection extends BaseModel {
   @column()
   declare photoPaths: string[] | null
 
-  @column()
-  declare calendlyEventId: string | null
-
   @column.dateTime()
   declare appointmentDate: DateTime | null
 

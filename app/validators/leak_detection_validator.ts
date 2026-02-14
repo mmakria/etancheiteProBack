@@ -14,7 +14,7 @@ export const createLeakDetectionValidator = vine.compile(
     description: vine.string().trim().maxLength(3000).optional(),
     photoPaths: vine.array(vine.string().maxLength(500)).maxLength(2).optional(),
     folderId: vine.string().uuid().optional(),
-    calendlyEventUri: vine.string().maxLength(500).optional(),
+    appointmentDate: vine.string().maxLength(30).optional(),
   })
 )
 
@@ -23,7 +23,6 @@ export const updateLeakDetectionValidator = vine.compile(
     status: vine.enum(['submitted', 'appointment_scheduled', 'paid', 'completed', 'cancelled']).optional(),
     appointmentDate: vine.string().optional(),
     assignedTo: vine.number().positive().optional(),
-    calendlyEventId: vine.string().maxLength(200).optional(),
     stripePaymentIntentId: vine.string().maxLength(200).optional(),
     paymentStatus: vine.enum(['pending', 'paid', 'refunded', 'failed']).optional(),
     amountCents: vine.number().positive().optional(),
