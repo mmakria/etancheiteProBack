@@ -4,6 +4,7 @@ import Stripe from 'stripe'
 import mail from '@adonisjs/mail/services/main'
 import LeakDetection from '#models/leak_detection'
 import PaymentReceiptNotification from '#mails/payment_receipt_notification'
+import googleCalendar from '#services/google_calendar_service'
 
 const stripe = new Stripe(env.get('STRIPE_SECRET_KEY'))
 
@@ -92,6 +93,29 @@ export default class StripeController {
           detection.stripePaymentIntentId = session.payment_intent as string
           detection.amountCents = session.amount_total ?? 25000
           await detection.save()
+
+          // Create Google Calendar event after successful payment
+          if (detection.appointmentDate) {
+            const dt = detection.appointmentDate.toISO()
+            const [date, timePart] = (dt ?? '').split('T')
+            if (date && timePart) {
+              const time = timePart.substring(0, 5)
+              const eventId = await googleCalendar.createEvent({
+                date,
+                time,
+                firstName: detection.firstName,
+                lastName: detection.lastName,
+                address: detection.address,
+                leakType: detection.leakType,
+                folderId: detection.folderId ?? null,
+                phone: detection.phone,
+              })
+              if (eventId) {
+                detection.googleCalendarEventId = eventId
+                await detection.save()
+              }
+            }
+          }
 
           try {
             await mail.send(new PaymentReceiptNotification(detection))

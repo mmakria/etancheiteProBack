@@ -5,6 +5,7 @@ import LeakDetection from '#models/leak_detection'
 import { createLeakDetectionValidator, updateLeakDetectionValidator } from '#validators/leak_detection_validator'
 import BookingConfirmationNotification from '#mails/booking_confirmation_notification'
 import AdminNewBookingNotification from '#mails/admin_new_booking_notification'
+import googleCalendar from '#services/google_calendar_service'
 
 export default class LeakDetectionsController {
   /**
@@ -12,6 +13,21 @@ export default class LeakDetectionsController {
    */
   async store({ request, response }: HttpContext) {
     const { appointmentDate, ...modelData } = await request.validateUsing(createLeakDetectionValidator)
+
+    // Check slot availability on Google Calendar before saving
+    if (appointmentDate) {
+      const [date, timePart] = appointmentDate.split('T')
+      if (date && timePart) {
+        const time = timePart.substring(0, 5) // "HH:mm"
+        const available = await googleCalendar.isSlotAvailable(date, time)
+        if (!available) {
+          return response.conflict({
+            code: 'SLOT_TAKEN',
+            message: 'Ce créneau vient d\'être réservé par un autre client. Veuillez en choisir un autre.',
+          })
+        }
+      }
+    }
 
     let detection: LeakDetection
 
