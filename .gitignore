@@ -9,6 +9,9 @@ tmp
 .env.production.local
 .env.development.local
 
+# Google Cloud service account keys
+etancheitepro-*.json
+
 # Frontend assets compiled code
 public/assets
 

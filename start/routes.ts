@@ -17,6 +17,7 @@ const RealisationsController = () => import('#controllers/realisations_controlle
 const CitiesController = () => import('#controllers/cities_controller')
 const UploadsController = () => import('#controllers/uploads_controller')
 const StripeController = () => import('#controllers/stripe_controller')
+const AppointmentsController = () => import('#controllers/appointments_controller')
 const AuthController = () => import('#controllers/auth_controller')
 
 // Health check
@@ -49,6 +50,9 @@ router
     // Realisations — public read
     router.get('/realisations', [RealisationsController, 'index'])
     router.get('/realisations/:slug', [RealisationsController, 'show'])
+
+    // Appointments — available slots
+    router.get('/appointments/available-slots', [AppointmentsController, 'availableSlots'])
 
     // City pages — public read
     router.get('/cities', [CitiesController, 'index'])

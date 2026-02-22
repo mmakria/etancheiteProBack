@@ -62,6 +62,9 @@ export default class LeakDetection extends BaseModel {
   declare status: 'submitted' | 'appointment_scheduled' | 'paid' | 'completed' | 'cancelled'
 
   @column()
+  declare googleCalendarEventId: string | null
+
+  @column()
   declare assignedTo: number | null
 
   @belongsTo(() => User, { foreignKey: 'assignedTo' })

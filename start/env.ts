@@ -47,4 +47,13 @@ export default await Env.create(new URL('../', import.meta.url), {
   MAIL_FROM_ADDRESS: Env.schema.string(),
   MAIL_FROM_NAME: Env.schema.string(),
   ADMIN_EMAIL: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for Google Calendar
+  |----------------------------------------------------------
+  */
+  GOOGLE_CALENDAR_ID: Env.schema.string.optional(),
+  GOOGLE_SERVICE_ACCOUNT_EMAIL: Env.schema.string.optional(),
+  GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY: Env.schema.string.optional(),
 })
