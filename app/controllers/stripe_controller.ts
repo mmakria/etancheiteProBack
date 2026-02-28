@@ -4,6 +4,7 @@ import Stripe from 'stripe'
 import mail from '@adonisjs/mail/services/main'
 import LeakDetection from '#models/leak_detection'
 import PaymentReceiptNotification from '#mails/payment_receipt_notification'
+import AdminPaymentConfirmationNotification from '#mails/admin_payment_confirmation_notification'
 import googleCalendar from '#services/google_calendar_service'
 
 const stripe = new Stripe(env.get('STRIPE_SECRET_KEY'))
@@ -119,8 +120,9 @@ export default class StripeController {
 
           try {
             await mail.send(new PaymentReceiptNotification(detection))
+            await mail.send(new AdminPaymentConfirmationNotification(detection))
           } catch (error) {
-            console.error('Failed to send payment receipt:', error)
+            console.error('Failed to send payment emails:', error)
           }
         }
       }

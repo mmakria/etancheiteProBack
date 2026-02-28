@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reçu de paiement</title>
+  <title>Confirmation de votre réservation</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: Inter, Arial, Helvetica, sans-serif;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f5; padding: 32px 0;">
@@ -14,17 +14,17 @@
           <tr>
             <td style="background-color: #0a1628; padding: 32px 40px; text-align: center;">
               <h1 style="color: #ffffff; font-size: 24px; font-weight: 900; margin: 0; line-height: 1.1;">Makria</h1>
-              <p style="color: #D97706; font-size: 14px; margin: 8px 0 0; font-weight: 600;">Reçu de paiement</p>
+              <p style="color: #D97706; font-size: 14px; margin: 8px 0 0; font-weight: 600;">Confirmation de réservation</p>
             </td>
           </tr>
 
           {{-- Body --}}
           <tr>
             <td style="padding: 40px;">
-              <h2 style="color: #0a1628; font-size: 20px; font-weight: 900; margin: 0 0 16px; line-height: 1.1;">Paiement confirmé</h2>
+              <h2 style="color: #0a1628; font-size: 20px; font-weight: 900; margin: 0 0 16px; line-height: 1.1;">Votre réservation est confirmée</h2>
               <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 24px;">
                 Bonjour {{ detection.firstName }},<br><br>
-                Votre paiement a été reçu avec succès. Voici votre reçu :
+                Votre paiement a été reçu avec succès et votre réservation est confirmée. Voici le récapitulatif complet :
               </p>
 
               {{-- Payment box --}}
@@ -37,7 +37,8 @@
                 </tr>
               </table>
 
-              {{-- Details --}}
+              {{-- Dossier details --}}
+              <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Détails du dossier</h3>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 24px;">
                 <tr>
                   <td style="padding: 24px;">
@@ -51,6 +52,14 @@
                       <tr>
                         <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Prestation</td>
                         <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">Recherche de fuite — Détection non destructive</td>
+                      </tr>
+                      <tr>
+                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Type de fuite</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ leakTypeLabels[detection.leakType] || detection.leakType }}</td>
+                      </tr>
+                      <tr>
+                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Sévérité</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ severityLabels[detection.severity] || detection.severity }}</td>
                       </tr>
                       <tr>
                         <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Adresse</td>

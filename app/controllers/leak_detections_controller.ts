@@ -3,7 +3,6 @@ import { DateTime } from 'luxon'
 import mail from '@adonisjs/mail/services/main'
 import LeakDetection from '#models/leak_detection'
 import { createLeakDetectionValidator, updateLeakDetectionValidator } from '#validators/leak_detection_validator'
-import BookingConfirmationNotification from '#mails/booking_confirmation_notification'
 import AdminNewBookingNotification from '#mails/admin_new_booking_notification'
 import googleCalendar from '#services/google_calendar_service'
 
@@ -54,10 +53,9 @@ export default class LeakDetectionsController {
 
     if (isNew) {
       try {
-        await mail.send(new BookingConfirmationNotification(detection))
         await mail.send(new AdminNewBookingNotification(detection))
       } catch (error) {
-        console.error('Failed to send booking emails:', error)
+        console.error('Failed to send admin booking notification:', error)
       }
     }
 

@@ -1,32 +1,35 @@
 import { BaseMail } from '@adonisjs/mail'
+import env from '#start/env'
 import LeakDetection from '#models/leak_detection'
-import { leakTypeLabels, severityLabels } from '../utils/labels.js'
+import { leakTypeLabels, severityLabels, paymentStatusLabels } from '../utils/labels.js'
 
-export default class PaymentReceiptNotification extends BaseMail {
+export default class AdminPaymentConfirmationNotification extends BaseMail {
   subject = ''
 
   private amountEuros: string
 
   constructor(private detection: LeakDetection) {
     super()
-    this.subject = `Confirmation de votre réservation — Dossier ${detection.folderId?.slice(0, 8) ?? ''}`
+    this.subject = `Paiement confirmé — ${detection.firstName} ${detection.lastName}`
     this.amountEuros = ((detection.amountCents ?? 25000) / 100).toFixed(2)
   }
 
   prepare() {
     this.message
-      .to(this.detection.email)
-      .htmlView('emails/payment_receipt_html', {
+      .to(env.get('ADMIN_EMAIL'))
+      .htmlView('emails/admin_payment_confirmation_html', {
         detection: this.detection,
         amountEuros: this.amountEuros,
         leakTypeLabels,
         severityLabels,
+        paymentStatusLabels,
       })
-      .textView('emails/payment_receipt_text', {
+      .textView('emails/admin_payment_confirmation_text', {
         detection: this.detection,
         amountEuros: this.amountEuros,
         leakTypeLabels,
         severityLabels,
+        paymentStatusLabels,
       })
   }
 }

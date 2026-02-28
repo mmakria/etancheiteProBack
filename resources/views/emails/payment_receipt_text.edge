@@ -1,18 +1,22 @@
-MAKRIA — Reçu de paiement
-==========================
+MAKRIA — Confirmation de réservation
+======================================
 
-Paiement confirmé
+Votre réservation est confirmée
 
 Bonjour {{ detection.firstName }},
 
-Votre paiement a été reçu avec succès. Voici votre reçu :
+Votre paiement a été reçu avec succès et votre réservation est confirmée. Voici le récapitulatif complet :
 
 Montant payé : {{ amountEuros }} €
 
+DÉTAILS DU DOSSIER
+------------------
 @if(detection.folderId)
 Référence : {{ detection.folderId.slice(0, 8) }}
 @end
 Prestation : Recherche de fuite — Détection non destructive
+Type de fuite : {{ leakTypeLabels[detection.leakType] || detection.leakType }}
+Sévérité : {{ severityLabels[detection.severity] || detection.severity }}
 Adresse : {{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}
 @if(detection.appointmentDate)
 Rendez-vous : {{ detection.appointmentDate.toFormat('dd/MM/yyyy HH:mm') }}
