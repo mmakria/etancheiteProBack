@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="x-apple-disable-message-reformatting">
-  <title>Nouveau dossier</title>
+  <title>Message re&ccedil;u</title>
   <!--[if mso]>
   <noscript>
     <xml>
@@ -32,7 +32,7 @@
 <body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, Helvetica, sans-serif;">
   {{-- Preheader text (invisible preview) --}}
   <div style="display: none; font-size: 1px; color: #f4f4f5; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-    Nouveau dossier &mdash; {{ detection.firstName }} {{ detection.lastName }} &mdash; {{ leakTypeLabels[detection.leakType] || detection.leakType }}
+    Merci {{ contact.firstName }}, nous avons bien re&ccedil;u votre message et vous r&eacute;pondrons sous 24h.
     &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
   </div>
 
@@ -48,54 +48,69 @@
               @else
               <h1 style="color: #ffffff; font-size: 24px; font-weight: 900; margin: 0 0 4px; line-height: 1.1;">Makria</h1>
               @end
-              <p style="color: #D97706; font-size: 14px; margin: 0; font-weight: 600;">Admin &mdash; Nouveau dossier</p>
+              <p style="color: #D97706; font-size: 14px; margin: 0; font-weight: 600;">Message re&ccedil;u</p>
             </td>
           </tr>
 
           {{-- Body --}}
           <tr>
             <td class="email-body-padding" style="padding: 40px;">
-              <h2 style="color: #0a1628; font-size: 20px; font-weight: 900; margin: 0 0 16px; line-height: 1.1;">Nouvelle demande de recherche de fuite</h2>
+              {{-- Greeting --}}
+              <h2 style="color: #0a1628; font-size: 20px; font-weight: 900; margin: 0 0 8px; line-height: 1.1;">Bonjour {{ contact.firstName }},</h2>
               <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 24px;">
-                Un nouveau dossier a &eacute;t&eacute; cr&eacute;&eacute;. Voici les d&eacute;tails :
+                Merci pour votre message. Nous l'avons bien re&ccedil;u et notre &eacute;quipe vous r&eacute;pondra dans les meilleurs d&eacute;lais.
               </p>
 
-              {{-- Client info --}}
-              <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Informations client</h3>
+              {{-- Confirmation box --}}
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0fdf4; border-radius: 8px; border: 1px solid #bbf7d0; margin-bottom: 24px;">
+                <tr>
+                  <td style="padding: 16px 24px; text-align: center;">
+                    <p style="color: #166534; font-size: 15px; font-weight: 700; margin: 0;">&#10003; Message bien re&ccedil;u</p>
+                  </td>
+                </tr>
+              </table>
+
+              {{-- Message recap --}}
+              <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">R&eacute;capitulatif de votre message</h3>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 24px;">
                 <tr>
                   <td style="padding: 24px;">
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0; width: 140px;">Nom</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ detection.firstName }} {{ detection.lastName }}</td>
+                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0; width: 100px; vertical-align: top;">Sujet</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ contact.subject }}</td>
                       </tr>
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">Email</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;"><a href="mailto:{{ detection.email }}" style="color: #D97706; text-decoration: none;">{{ detection.email }}</a></td>
-                      </tr>
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">T&eacute;l&eacute;phone</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;"><a href="tel:{{ detection.phone }}" style="color: #D97706; text-decoration: none;">{{ detection.phone }}</a></td>
-                      </tr>
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0; vertical-align: top;">Adresse</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}</td>
+                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0; vertical-align: top;">Message</td>
+                        <td style="color: #0a1628; font-size: 14px; padding: 6px 0; line-height: 1.5;">{{ contact.message }}</td>
                       </tr>
                     </table>
                   </td>
                 </tr>
               </table>
 
-              {{-- Dossier Details --}}
-              @include('emails/components/dossier_details')
+              {{-- Response time --}}
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #eff6ff; border-radius: 8px; border: 1px solid #bfdbfe; margin-bottom: 24px;">
+                <tr>
+                  <td style="padding: 20px 24px;">
+                    <p style="color: #1e40af; font-size: 15px; font-weight: 700; margin: 0 0 8px;">&#128340; D&eacute;lai de r&eacute;ponse</p>
+                    <p style="color: #1e40af; font-size: 14px; line-height: 1.5; margin: 0;">
+                      Notre &eacute;quipe vous r&eacute;pondra sous <strong>24h ouvr&eacute;es</strong>. Pour toute urgence, n'h&eacute;sitez pas &agrave; nous appeler directement.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              {{-- Trust Signals --}}
+              @include('emails/components/trust_signals')
+
             </td>
           </tr>
 
           {{-- Footer --}}
           <tr>
             <td style="background-color: #f9fafb; padding: 24px 40px; border-top: 1px solid #e5e7eb;">
-              @include('emails/components/footer_admin')
+              @include('emails/components/footer_customer')
             </td>
           </tr>
         </table>

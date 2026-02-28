@@ -1,0 +1,69 @@
+{{-- Dossier Details Component
+     @param detection - LeakDetection model
+     @param leakTypeLabels - label map
+     @param severityLabels - label map
+     @param showPayment - boolean (optional, for admin emails)
+     @param amountEuros - string (optional)
+     @param paymentStatusLabels - label map (optional)
+--}}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+  <tr>
+    <td>
+      <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">D&eacute;tails du dossier</h3>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb;">
+        <tr>
+          <td style="padding: 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+              @if(detection.folderId)
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding: 6px 0; width: 140px; vertical-align: top;">R&eacute;f&eacute;rence</td>
+                <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0; font-family: 'Courier New', monospace;">{{ detection.folderId.slice(0, 8) }}</td>
+              </tr>
+              @end
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding: 6px 0; width: 140px;">Prestation</td>
+                <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">Recherche de fuite &mdash; D&eacute;tection non destructive</td>
+              </tr>
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">Type de fuite</td>
+                <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ leakTypeLabels[detection.leakType] || detection.leakType }}</td>
+              </tr>
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">S&eacute;v&eacute;rit&eacute;</td>
+                <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ severityLabels[detection.severity] || detection.severity }}</td>
+              </tr>
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding: 6px 0; vertical-align: top;">Adresse</td>
+                <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}</td>
+              </tr>
+              @if(detection.description)
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding: 6px 0; vertical-align: top;">Description</td>
+                <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ detection.description }}</td>
+              </tr>
+              @end
+              @if(detection.appointmentDate)
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">Rendez-vous</td>
+                <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ detection.appointmentDate.toFormat('dd/MM/yyyy HH:mm') }}</td>
+              </tr>
+              @end
+              @if(showPayment && amountEuros)
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">Montant</td>
+                <td style="color: #166534; font-size: 14px; font-weight: 700; padding: 6px 0;">{{ amountEuros }} &euro;</td>
+              </tr>
+              @end
+              @if(showPayment && paymentStatusLabels)
+              <tr>
+                <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">Statut paiement</td>
+                <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ paymentStatusLabels[detection.paymentStatus] || detection.paymentStatus }}</td>
+              </tr>
+              @end
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

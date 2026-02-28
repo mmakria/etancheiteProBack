@@ -1,0 +1,21 @@
+MAKRIA — Admin — Nouveau message contact
+=========================================
+
+Nouveau message via le formulaire de contact
+
+INFORMATIONS CONTACT
+--------------------
+Nom : {{ contact.firstName }} {{ contact.lastName }}
+Email : {{ contact.email }}
+@if(contact.phone)
+Téléphone : {{ contact.phone }}
+@end
+
+MESSAGE
+-------
+Sujet : {{ contact.subject }}
+
+{{ contact.message }}
+
+---
+Notification automatique — Makria Admin

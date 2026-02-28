@@ -174,10 +174,10 @@ class GoogleCalendarService {
       const endDate = new Date(new Date(startDateTime).getTime() + 2 * 60 * 60 * 1000)
 
       const leakLabels: Record<string, string> = {
-        roof: 'Toiture',
-        terrace: 'Terrasse',
-        wall: 'Mur',
-        basement: 'Sous-sol',
+        flat_roof: 'Toiture terrasse',
+        tile: 'Tuiles',
+        slate: 'Ardoises',
+        metal_sheet: 'Couverture sèche',
         other: 'Autre',
       }
 

@@ -1,8 +1,8 @@
 export const leakTypeLabels: Record<string, string> = {
-  roof: 'Toiture',
-  terrace: 'Terrasse',
-  wall: 'Mur',
-  basement: 'Sous-sol',
+  flat_roof: 'Toiture terrasse',
+  tile: 'Tuiles',
+  slate: 'Ardoises',
+  metal_sheet: 'Couverture sèche',
   other: 'Autre',
 }
 

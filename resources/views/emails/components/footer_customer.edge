@@ -1,0 +1,23 @@
+{{-- Customer Footer Component
+     @param company - COMPANY_INFO object
+     @param websiteUrl - frontend URL
+--}}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td style="text-align: center;">
+      <p style="color: #374151; font-size: 13px; font-weight: 600; margin: 0 0 8px;">Une question ? Contactez-nous</p>
+      <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 0 0 4px;">
+        <a href="tel:{{ company.phone.replace(/ /g, '') }}" style="color: #D97706; text-decoration: none; font-weight: 600;">&#9742; {{ company.phone }}</a>
+        &nbsp;&middot;&nbsp;
+        <a href="mailto:{{ company.email }}" style="color: #D97706; text-decoration: none; font-weight: 600;">{{ company.email }}</a>
+      </p>
+      <p style="color: #9ca3af; font-size: 11px; line-height: 1.5; margin: 12px 0 0;">
+        {{ company.name }} &mdash; &Eacute;tanch&eacute;it&eacute; & Am&eacute;nagement<br>
+        {{ company.address }}
+        @if(websiteUrl)
+        &nbsp;&middot;&nbsp;<a href="{{ websiteUrl }}" style="color: #9ca3af; text-decoration: underline;">makria.fr</a>
+        @end
+      </p>
+    </td>
+  </tr>
+</table>

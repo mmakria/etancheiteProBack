@@ -2,6 +2,7 @@ import { BaseMail } from '@adonisjs/mail'
 import env from '#start/env'
 import LeakDetection from '#models/leak_detection'
 import { leakTypeLabels, severityLabels, paymentStatusLabels } from '../utils/labels.js'
+import { getLogoUrl, COMPANY_INFO } from '../utils/email_helpers.js'
 
 export default class AdminPaymentConfirmationNotification extends BaseMail {
   subject = ''
@@ -15,21 +16,19 @@ export default class AdminPaymentConfirmationNotification extends BaseMail {
   }
 
   prepare() {
+    const templateData = {
+      detection: this.detection,
+      amountEuros: this.amountEuros,
+      leakTypeLabels,
+      severityLabels,
+      paymentStatusLabels,
+      logoUrl: getLogoUrl(env.get('FRONTEND_URL')),
+      company: COMPANY_INFO,
+    }
+
     this.message
       .to(env.get('ADMIN_EMAIL'))
-      .htmlView('emails/admin_payment_confirmation_html', {
-        detection: this.detection,
-        amountEuros: this.amountEuros,
-        leakTypeLabels,
-        severityLabels,
-        paymentStatusLabels,
-      })
-      .textView('emails/admin_payment_confirmation_text', {
-        detection: this.detection,
-        amountEuros: this.amountEuros,
-        leakTypeLabels,
-        severityLabels,
-        paymentStatusLabels,
-      })
+      .htmlView('emails/admin_payment_confirmation_html', templateData)
+      .textView('emails/admin_payment_confirmation_text', templateData)
   }
 }

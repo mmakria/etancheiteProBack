@@ -1,0 +1,27 @@
+{{-- Precautionary Measures Component
+     @param precautions - Array of { icon, text }
+     @param precautionColors - { borderColor, bgColor, titleColor, titleText }
+--}}
+@if(precautions && precautions.length > 0)
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+  <tr>
+    <td>
+      <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">{{ precautionColors.titleText }}</h3>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: {{ precautionColors.bgColor }}; border-radius: 8px; border: 1px solid {{ precautionColors.borderColor }};">
+        <tr>
+          <td style="padding: 20px 24px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+              @each(measure in precautions)
+              <tr>
+                <td style="width: 28px; vertical-align: top; padding: 6px 0; font-size: 16px;">{{ measure.icon }}</td>
+                <td style="color: {{ precautionColors.titleColor }}; font-size: 14px; line-height: 1.5; padding: 6px 0;">{{ measure.text }}</td>
+              </tr>
+              @end
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+@end

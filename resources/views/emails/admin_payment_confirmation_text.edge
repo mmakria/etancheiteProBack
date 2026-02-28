@@ -1,5 +1,5 @@
 MAKRIA — Admin — Paiement confirmé
-=====================================
+====================================
 
 Paiement reçu — {{ amountEuros }} €
 
@@ -15,6 +15,7 @@ DÉTAILS DU DOSSIER
 @if(detection.folderId)
 Référence : {{ detection.folderId.slice(0, 8) }}
 @end
+Prestation : Recherche de fuite — Détection non destructive
 Type de fuite : {{ leakTypeLabels[detection.leakType] || detection.leakType }}
 Sévérité : {{ severityLabels[detection.severity] || detection.severity }}
 @if(detection.description)

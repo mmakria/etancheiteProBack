@@ -1,94 +1,121 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Confirmation de votre réservation</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="x-apple-disable-message-reformatting">
+  <title>Confirmation de votre r&eacute;servation</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:AllowPNG/>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    body { margin: 0; padding: 0; width: 100% !important; height: 100% !important; }
+    a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
+    @media only screen and (max-width: 620px) {
+      .email-container { width: 100% !important; max-width: 100% !important; }
+      .email-body-padding { padding: 24px 20px !important; }
+      .email-header-padding { padding: 24px 20px !important; }
+    }
+  </style>
 </head>
-<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: Inter, Arial, Helvetica, sans-serif;">
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, Helvetica, sans-serif;">
+  {{-- Preheader text (invisible preview) --}}
+  <div style="display: none; font-size: 1px; color: #f4f4f5; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+    Paiement confirm&eacute; &mdash; {{ amountEuros }} &euro; &mdash; Votre dossier est en cours de traitement
+    &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+  </div>
+
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f5; padding: 32px 0;">
     <tr>
       <td align="center">
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; max-width: 600px; width: 100%;">
+        <table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; max-width: 600px; width: 100%;">
           {{-- Header --}}
           <tr>
-            <td style="background-color: #0a1628; padding: 32px 40px; text-align: center;">
-              <h1 style="color: #ffffff; font-size: 24px; font-weight: 900; margin: 0; line-height: 1.1;">Makria</h1>
-              <p style="color: #D97706; font-size: 14px; margin: 8px 0 0; font-weight: 600;">Confirmation de réservation</p>
+            <td class="email-header-padding" style="background-color: #0a1628; padding: 32px 40px; text-align: center;">
+              @if(logoUrl)
+              <img src="{{ logoUrl }}" alt="Makria" width="140" style="display: block; margin: 0 auto 12px; max-width: 140px; height: auto;">
+              @else
+              <h1 style="color: #ffffff; font-size: 24px; font-weight: 900; margin: 0 0 4px; line-height: 1.1;">Makria</h1>
+              @end
+              <p style="color: #D97706; font-size: 14px; margin: 0; font-weight: 600;">Confirmation de r&eacute;servation</p>
             </td>
           </tr>
 
           {{-- Body --}}
           <tr>
-            <td style="padding: 40px;">
-              <h2 style="color: #0a1628; font-size: 20px; font-weight: 900; margin: 0 0 16px; line-height: 1.1;">Votre réservation est confirmée</h2>
+            <td class="email-body-padding" style="padding: 40px;">
+              {{-- Greeting --}}
+              <h2 style="color: #0a1628; font-size: 20px; font-weight: 900; margin: 0 0 8px; line-height: 1.1;">Bonjour {{ detection.firstName }},</h2>
               <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 24px;">
-                Bonjour {{ detection.firstName }},<br><br>
-                Votre paiement a été reçu avec succès et votre réservation est confirmée. Voici le récapitulatif complet :
+                Votre paiement a &eacute;t&eacute; confirm&eacute; avec succ&egrave;s. Votre dossier est d&eacute;sormais en cours de traitement.
               </p>
 
-              {{-- Payment box --}}
+              {{-- Payment success box --}}
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0fdf4; border-radius: 8px; border: 1px solid #bbf7d0; margin-bottom: 24px;">
                 <tr>
                   <td style="padding: 24px; text-align: center;">
-                    <p style="color: #166534; font-size: 14px; font-weight: 600; margin: 0 0 8px;">Montant payé</p>
+                    <p style="color: #166534; font-size: 14px; font-weight: 600; margin: 0 0 8px;">&#10003; Montant pay&eacute;</p>
                     <p style="color: #166534; font-size: 32px; font-weight: 900; margin: 0;">{{ amountEuros }} &euro;</p>
                   </td>
                 </tr>
               </table>
 
-              {{-- Dossier details --}}
-              <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Détails du dossier</h3>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 24px;">
+              {{-- Process Timeline --}}
+              @include('emails/components/process_timeline')
+
+              {{-- Next steps --}}
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #eff6ff; border-radius: 8px; border: 1px solid #bfdbfe; margin-bottom: 24px;">
                 <tr>
-                  <td style="padding: 24px;">
-                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                      @if(detection.folderId)
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0; width: 140px;">Référence</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.folderId.slice(0, 8) }}</td>
-                      </tr>
-                      @end
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Prestation</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">Recherche de fuite — Détection non destructive</td>
-                      </tr>
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Type de fuite</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ leakTypeLabels[detection.leakType] || detection.leakType }}</td>
-                      </tr>
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Sévérité</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ severityLabels[detection.severity] || detection.severity }}</td>
-                      </tr>
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Adresse</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}</td>
-                      </tr>
-                      @if(detection.appointmentDate)
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Rendez-vous</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.appointmentDate.toFormat('dd/MM/yyyy HH:mm') }}</td>
-                      </tr>
-                      @end
-                    </table>
+                  <td style="padding: 20px 24px;">
+                    <p style="color: #1e40af; font-size: 15px; font-weight: 700; margin: 0 0 8px;">&#128197; Prochaine &eacute;tape</p>
+                    <p style="color: #1e40af; font-size: 14px; line-height: 1.5; margin: 0;">
+                      Notre &eacute;quipe vous contactera sous <strong>24h</strong> pour confirmer votre rendez-vous et organiser l'intervention de diagnostic.
+                    </p>
                   </td>
                 </tr>
               </table>
 
-              <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0;">
-                Un technicien vous contactera prochainement pour confirmer les détails de votre rendez-vous. Conservez cet email comme justificatif de paiement.
-              </p>
+              {{-- Dossier Details --}}
+              @include('emails/components/dossier_details')
+
+              {{-- Precautionary Measures (conditional) --}}
+              @if(detection.severity !== 'minor')
+                @include('emails/components/precautionary_measures')
+              @end
+
+              {{-- What to expect --}}
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+                <tr>
+                  <td>
+                    <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Ce qui vous attend</h3>
+                    <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0;">
+                      Lors du diagnostic, notre technicien utilisera des &eacute;quipements de d&eacute;tection non destructive (cam&eacute;ra thermique, gaz traceur, &eacute;coute acoustique) pour localiser pr&eacute;cis&eacute;ment l'origine de la fuite. Vous recevrez ensuite un rapport d&eacute;taill&eacute; avec nos pr&eacute;conisations.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              {{-- Trust Signals --}}
+              @include('emails/components/trust_signals')
+
             </td>
           </tr>
 
           {{-- Footer --}}
           <tr>
             <td style="background-color: #f9fafb; padding: 24px 40px; border-top: 1px solid #e5e7eb;">
-              <p style="color: #6b7280; font-size: 12px; line-height: 1.5; margin: 0; text-align: center;">
-                Makria &mdash; Étanchéité & Aménagement<br>
-                Cet email a été envoyé à {{ detection.email }}
-              </p>
+              @include('emails/components/footer_customer')
             </td>
           </tr>
         </table>

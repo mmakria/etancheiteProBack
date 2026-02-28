@@ -1,5 +1,5 @@
 MAKRIA — Admin — Nouveau dossier
-==================================
+=================================
 
 Nouvelle demande de recherche de fuite
 
@@ -25,7 +25,7 @@ Description : {{ detection.description }}
 @if(detection.appointmentDate)
 Rendez-vous : {{ detection.appointmentDate.toFormat('dd/MM/yyyy HH:mm') }}
 @end
-Montant : 250,00 €
+Montant : {{ amountEuros }} €
 Statut paiement : {{ paymentStatusLabels[detection.paymentStatus] || detection.paymentStatus }}
 
 ---

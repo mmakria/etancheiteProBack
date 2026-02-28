@@ -1,13 +1,21 @@
 MAKRIA — Confirmation de réservation
-======================================
-
-Votre réservation est confirmée
+=====================================
 
 Bonjour {{ detection.firstName }},
 
-Votre paiement a été reçu avec succès et votre réservation est confirmée. Voici le récapitulatif complet :
+Votre paiement a été confirmé avec succès. Votre dossier est désormais en cours de traitement.
 
-Montant payé : {{ amountEuros }} €
+MONTANT PAYÉ : {{ amountEuros }} €
+
+SUIVI DE VOTRE DOSSIER
+----------------------
+@each(step in timeline)
+[{{ step.status === 'completed' ? '✓' : step.status === 'current' ? '●' : '○' }}] {{ step.number }}. {{ step.label }}
+@end
+
+PROCHAINE ÉTAPE
+---------------
+Notre équipe vous contactera sous 24h pour confirmer votre rendez-vous et organiser l'intervention de diagnostic.
 
 DÉTAILS DU DOSSIER
 ------------------
@@ -22,8 +30,28 @@ Adresse : {{ detection.address }}{{ (detection.postalCode || detection.city) ? `
 Rendez-vous : {{ detection.appointmentDate.toFormat('dd/MM/yyyy HH:mm') }}
 @end
 
-Un technicien vous contactera prochainement pour confirmer les détails de votre rendez-vous. Conservez cet email comme justificatif de paiement.
+@if(detection.severity !== 'minor')
+MESURES DE PRÉCAUTION
+---------------------
+@each(measure in precautions)
+{{ measure.icon }} {{ measure.text }}
+@end
+
+@end
+CE QUI VOUS ATTEND
+------------------
+Lors du diagnostic, notre technicien utilisera des équipements de détection non destructive (caméra thermique, gaz traceur, écoute acoustique) pour localiser précisément l'origine de la fuite. Vous recevrez ensuite un rapport détaillé avec nos préconisations.
+
+POURQUOI MAKRIA
+---------------
+✓ 12+ ans d'expérience
+✓ 150+ chantiers réalisés
+✓ Garantie décennale
+✓ Disponible 7j/7
 
 ---
-Makria — Étanchéité & Aménagement
-Cet email a été envoyé à {{ detection.email }}
+{{ company.name }} — Étanchéité & Aménagement
+{{ company.address }}
+@if(websiteUrl)
+{{ websiteUrl }}
+@end

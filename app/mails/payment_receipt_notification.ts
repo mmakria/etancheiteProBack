@@ -1,6 +1,14 @@
 import { BaseMail } from '@adonisjs/mail'
+import env from '#start/env'
 import LeakDetection from '#models/leak_detection'
 import { leakTypeLabels, severityLabels } from '../utils/labels.js'
+import {
+  getLogoUrl,
+  getProcessTimeline,
+  getPrecautionaryMeasures,
+  getPrecautionColors,
+  COMPANY_INFO,
+} from '../utils/email_helpers.js'
 
 export default class PaymentReceiptNotification extends BaseMail {
   subject = ''
@@ -14,19 +22,24 @@ export default class PaymentReceiptNotification extends BaseMail {
   }
 
   prepare() {
+    const frontendUrl = env.get('FRONTEND_URL')
+    const templateData = {
+      detection: this.detection,
+      amountEuros: this.amountEuros,
+      leakTypeLabels,
+      severityLabels,
+      logoUrl: getLogoUrl(frontendUrl),
+      timeline: getProcessTimeline(2),
+      precautions: getPrecautionaryMeasures(this.detection.severity, this.detection.leakType),
+      precautionColors: getPrecautionColors(this.detection.severity),
+      company: COMPANY_INFO,
+      websiteUrl: frontendUrl,
+    }
+
     this.message
       .to(this.detection.email)
-      .htmlView('emails/payment_receipt_html', {
-        detection: this.detection,
-        amountEuros: this.amountEuros,
-        leakTypeLabels,
-        severityLabels,
-      })
-      .textView('emails/payment_receipt_text', {
-        detection: this.detection,
-        amountEuros: this.amountEuros,
-        leakTypeLabels,
-        severityLabels,
-      })
+      .replyTo(COMPANY_INFO.email)
+      .htmlView('emails/payment_receipt_html', templateData)
+      .textView('emails/payment_receipt_text', templateData)
   }
 }

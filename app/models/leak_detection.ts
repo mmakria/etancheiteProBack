@@ -35,7 +35,7 @@ export default class LeakDetection extends BaseModel {
   declare stripeCheckoutSessionId: string | null
 
   @column()
-  declare leakType: 'roof' | 'terrace' | 'wall' | 'basement' | 'other'
+  declare leakType: 'flat_roof' | 'tile' | 'slate' | 'metal_sheet' | 'other'
 
   @column()
   declare severity: 'minor' | 'moderate' | 'severe' | 'emergency'

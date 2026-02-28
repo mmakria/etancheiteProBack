@@ -1,31 +1,65 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paiement confirmé</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="x-apple-disable-message-reformatting">
+  <title>Paiement confirm&eacute;</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:AllowPNG/>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    body { margin: 0; padding: 0; width: 100% !important; height: 100% !important; }
+    a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
+    @media only screen and (max-width: 620px) {
+      .email-container { width: 100% !important; max-width: 100% !important; }
+      .email-body-padding { padding: 24px 20px !important; }
+      .email-header-padding { padding: 24px 20px !important; }
+    }
+  </style>
 </head>
-<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: Inter, Arial, Helvetica, sans-serif;">
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, Helvetica, sans-serif;">
+  {{-- Preheader text (invisible preview) --}}
+  <div style="display: none; font-size: 1px; color: #f4f4f5; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+    Paiement confirm&eacute; &mdash; {{ detection.firstName }} {{ detection.lastName }} &mdash; {{ amountEuros }} &euro;
+    &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+  </div>
+
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f5; padding: 32px 0;">
     <tr>
       <td align="center">
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; max-width: 600px; width: 100%;">
+        <table role="presentation" class="email-container" width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; max-width: 600px; width: 100%;">
           {{-- Header --}}
           <tr>
-            <td style="background-color: #0a1628; padding: 32px 40px; text-align: center;">
-              <h1 style="color: #ffffff; font-size: 24px; font-weight: 900; margin: 0; line-height: 1.1;">Makria — Admin</h1>
-              <p style="color: #D97706; font-size: 14px; margin: 8px 0 0; font-weight: 600;">Paiement confirmé</p>
+            <td class="email-header-padding" style="background-color: #0a1628; padding: 32px 40px; text-align: center;">
+              @if(logoUrl)
+              <img src="{{ logoUrl }}" alt="Makria" width="140" style="display: block; margin: 0 auto 12px; max-width: 140px; height: auto;">
+              @else
+              <h1 style="color: #ffffff; font-size: 24px; font-weight: 900; margin: 0 0 4px; line-height: 1.1;">Makria</h1>
+              @end
+              <p style="color: #D97706; font-size: 14px; margin: 0; font-weight: 600;">Admin &mdash; Paiement confirm&eacute;</p>
             </td>
           </tr>
 
           {{-- Body --}}
           <tr>
-            <td style="padding: 40px;">
+            <td class="email-body-padding" style="padding: 40px;">
               {{-- Success badge --}}
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0fdf4; border-radius: 8px; border: 1px solid #bbf7d0; margin-bottom: 24px;">
                 <tr>
                   <td style="padding: 16px 24px; text-align: center;">
-                    <p style="color: #166534; font-size: 16px; font-weight: 700; margin: 0;">Paiement reçu — {{ amountEuros }} &euro;</p>
+                    <p style="color: #166534; font-size: 16px; font-weight: 700; margin: 0;">&#10003; Paiement re&ccedil;u &mdash; {{ amountEuros }} &euro;</p>
                   </td>
                 </tr>
               </table>
@@ -37,62 +71,28 @@
                   <td style="padding: 24px;">
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0; width: 140px;">Nom</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.firstName }} {{ detection.lastName }}</td>
+                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0; width: 140px;">Nom</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ detection.firstName }} {{ detection.lastName }}</td>
                       </tr>
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Email</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.email }}</td>
+                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">Email</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;"><a href="mailto:{{ detection.email }}" style="color: #D97706; text-decoration: none;">{{ detection.email }}</a></td>
                       </tr>
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Téléphone</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.phone }}</td>
+                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">T&eacute;l&eacute;phone</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;"><a href="tel:{{ detection.phone }}" style="color: #D97706; text-decoration: none;">{{ detection.phone }}</a></td>
                       </tr>
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Adresse</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}</td>
+                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0; vertical-align: top;">Adresse</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}</td>
                       </tr>
                     </table>
                   </td>
                 </tr>
               </table>
 
-              {{-- Dossier info --}}
-              <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Détails du dossier</h3>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 24px;">
-                <tr>
-                  <td style="padding: 24px;">
-                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                      @if(detection.folderId)
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0; width: 140px;">Référence</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.folderId.slice(0, 8) }}</td>
-                      </tr>
-                      @end
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Type de fuite</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ leakTypeLabels[detection.leakType] || detection.leakType }}</td>
-                      </tr>
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Sévérité</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ severityLabels[detection.severity] || detection.severity }}</td>
-                      </tr>
-                      @if(detection.description)
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0; vertical-align: top;">Description</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.description }}</td>
-                      </tr>
-                      @end
-                      @if(detection.appointmentDate)
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Rendez-vous</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.appointmentDate.toFormat('dd/MM/yyyy HH:mm') }}</td>
-                      </tr>
-                      @end
-                    </table>
-                  </td>
-                </tr>
-              </table>
+              {{-- Dossier Details --}}
+              @include('emails/components/dossier_details')
 
               {{-- Payment info --}}
               <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Paiement</h3>
@@ -101,17 +101,17 @@
                   <td style="padding: 24px;">
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0; width: 140px;">Montant</td>
-                        <td style="color: #166534; font-size: 14px; font-weight: 700; padding: 4px 0;">{{ amountEuros }} &euro;</td>
+                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0; width: 140px;">Montant</td>
+                        <td style="color: #166534; font-size: 14px; font-weight: 700; padding: 6px 0;">{{ amountEuros }} &euro;</td>
                       </tr>
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">Statut</td>
-                        <td style="color: #166534; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ paymentStatusLabels[detection.paymentStatus] || detection.paymentStatus }}</td>
+                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">Statut</td>
+                        <td style="color: #166534; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ paymentStatusLabels[detection.paymentStatus] || detection.paymentStatus }}</td>
                       </tr>
                       @if(detection.stripePaymentIntentId)
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 4px 0;">ID Stripe</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 4px 0;">{{ detection.stripePaymentIntentId }}</td>
+                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">ID Stripe</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0; font-family: 'Courier New', monospace;">{{ detection.stripePaymentIntentId }}</td>
                       </tr>
                       @end
                     </table>
@@ -124,9 +124,7 @@
           {{-- Footer --}}
           <tr>
             <td style="background-color: #f9fafb; padding: 24px 40px; border-top: 1px solid #e5e7eb;">
-              <p style="color: #6b7280; font-size: 12px; line-height: 1.5; margin: 0; text-align: center;">
-                Notification automatique — Makria Admin
-              </p>
+              @include('emails/components/footer_admin')
             </td>
           </tr>
         </table>

@@ -1,6 +1,9 @@
 import type { HttpContext } from '@adonisjs/core/http'
+import mail from '@adonisjs/mail/services/main'
 import ContactMessage from '#models/contact_message'
 import { createContactValidator } from '#validators/contact_validator'
+import ContactFormConfirmation from '#mails/contact_form_confirmation'
+import AdminContactNotification from '#mails/admin_contact_notification'
 
 export default class ContactsController {
   /**
@@ -9,6 +12,16 @@ export default class ContactsController {
   async store({ request, response }: HttpContext) {
     const data = await request.validateUsing(createContactValidator)
     const message = await ContactMessage.create(data)
+
+    try {
+      await Promise.all([
+        mail.send(new ContactFormConfirmation(message)),
+        mail.send(new AdminContactNotification(message)),
+      ])
+    } catch (error) {
+      console.error('Failed to send contact form emails:', error)
+    }
+
     return response.created(message)
   }
 

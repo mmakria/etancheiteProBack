@@ -9,7 +9,7 @@ export const createLeakDetectionValidator = vine.compile(
     address: vine.string().trim().minLength(5).maxLength(300),
     city: vine.string().trim().minLength(2).maxLength(100).optional(),
     postalCode: vine.string().trim().regex(/^\d{5}$/).optional(),
-    leakType: vine.enum(['roof', 'terrace', 'wall', 'basement', 'other']),
+    leakType: vine.enum(['flat_roof', 'tile', 'slate', 'metal_sheet', 'other']),
     severity: vine.enum(['minor', 'moderate', 'severe', 'emergency']),
     description: vine.string().trim().maxLength(3000).optional(),
     photoPaths: vine.array(vine.string().maxLength(500)).maxLength(2).optional(),

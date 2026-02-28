@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="x-apple-disable-message-reformatting">
-  <title>Nouveau dossier</title>
+  <title>Nouveau message contact</title>
   <!--[if mso]>
   <noscript>
     <xml>
@@ -32,7 +32,7 @@
 <body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, Helvetica, sans-serif;">
   {{-- Preheader text (invisible preview) --}}
   <div style="display: none; font-size: 1px; color: #f4f4f5; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-    Nouveau dossier &mdash; {{ detection.firstName }} {{ detection.lastName }} &mdash; {{ leakTypeLabels[detection.leakType] || detection.leakType }}
+    Nouveau message de {{ contact.firstName }} {{ contact.lastName }} &mdash; {{ contact.subject }}
     &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
   </div>
 
@@ -48,47 +48,59 @@
               @else
               <h1 style="color: #ffffff; font-size: 24px; font-weight: 900; margin: 0 0 4px; line-height: 1.1;">Makria</h1>
               @end
-              <p style="color: #D97706; font-size: 14px; margin: 0; font-weight: 600;">Admin &mdash; Nouveau dossier</p>
+              <p style="color: #D97706; font-size: 14px; margin: 0; font-weight: 600;">Admin &mdash; Nouveau message</p>
             </td>
           </tr>
 
           {{-- Body --}}
           <tr>
             <td class="email-body-padding" style="padding: 40px;">
-              <h2 style="color: #0a1628; font-size: 20px; font-weight: 900; margin: 0 0 16px; line-height: 1.1;">Nouvelle demande de recherche de fuite</h2>
-              <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 24px;">
-                Un nouveau dossier a &eacute;t&eacute; cr&eacute;&eacute;. Voici les d&eacute;tails :
-              </p>
+              <h2 style="color: #0a1628; font-size: 20px; font-weight: 900; margin: 0 0 16px; line-height: 1.1;">Nouveau message via le formulaire de contact</h2>
 
-              {{-- Client info --}}
-              <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Informations client</h3>
+              {{-- Contact info --}}
+              <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Informations contact</h3>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 24px;">
                 <tr>
                   <td style="padding: 24px;">
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0; width: 140px;">Nom</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ detection.firstName }} {{ detection.lastName }}</td>
+                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0; width: 120px;">Nom</td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ contact.firstName }} {{ contact.lastName }}</td>
                       </tr>
                       <tr>
                         <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">Email</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;"><a href="mailto:{{ detection.email }}" style="color: #D97706; text-decoration: none;">{{ detection.email }}</a></td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;"><a href="mailto:{{ contact.email }}" style="color: #D97706; text-decoration: none;">{{ contact.email }}</a></td>
                       </tr>
+                      @if(contact.phone)
                       <tr>
                         <td style="color: #6b7280; font-size: 14px; padding: 6px 0;">T&eacute;l&eacute;phone</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;"><a href="tel:{{ detection.phone }}" style="color: #D97706; text-decoration: none;">{{ detection.phone }}</a></td>
+                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;"><a href="tel:{{ contact.phone }}" style="color: #D97706; text-decoration: none;">{{ contact.phone }}</a></td>
                       </tr>
-                      <tr>
-                        <td style="color: #6b7280; font-size: 14px; padding: 6px 0; vertical-align: top;">Adresse</td>
-                        <td style="color: #0a1628; font-size: 14px; font-weight: 600; padding: 6px 0;">{{ detection.address }}{{ (detection.postalCode || detection.city) ? `, ${detection.postalCode || ''} ${detection.city || ''}`.trim() : '' }}</td>
-                      </tr>
+                      @end
                     </table>
                   </td>
                 </tr>
               </table>
 
-              {{-- Dossier Details --}}
-              @include('emails/components/dossier_details')
+              {{-- Message --}}
+              <h3 style="color: #D97706; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Message</h3>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 24px;">
+                <tr>
+                  <td style="padding: 24px;">
+                    <p style="color: #0a1628; font-size: 15px; font-weight: 700; margin: 0 0 8px;">{{ contact.subject }}</p>
+                    <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0; white-space: pre-wrap;">{{ contact.message }}</p>
+                  </td>
+                </tr>
+              </table>
+
+              {{-- Quick reply --}}
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 0;">
+                <tr>
+                  <td align="center">
+                    <a href="mailto:{{ contact.email }}?subject=Re: {{ contact.subject }}" style="display: inline-block; background-color: #D97706; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; padding: 14px 32px; border-radius: 6px;">R&eacute;pondre au client</a>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
