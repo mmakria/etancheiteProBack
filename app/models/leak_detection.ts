@@ -43,7 +43,14 @@ export default class LeakDetection extends BaseModel {
   @column()
   declare description: string | null
 
-  @column()
+  @column({
+    prepare: (value: string[] | null) => (value ? JSON.stringify(value) : null),
+    consume: (value: string | string[] | null) => {
+      if (!value) return null
+      if (Array.isArray(value)) return value
+      return JSON.parse(value)
+    },
+  })
   declare photoPaths: string[] | null
 
   @column.dateTime()
