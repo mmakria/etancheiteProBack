@@ -123,7 +123,7 @@ class GoogleCalendarService {
             if (!slot.available) continue
 
             const slotStart = new Date(`${day.date}T${slot.time}:00+01:00`)
-            const slotEnd = new Date(slotStart.getTime() + 60 * 60 * 1000)
+            const slotEnd = new Date(slotStart.getTime() + 2 * 60 * 60 * 1000)
 
             // If busy period overlaps with this slot
             if (busyStart < slotEnd && busyEnd > slotStart) {
@@ -146,7 +146,7 @@ class GoogleCalendarService {
 
     try {
       const slotStart = new Date(`${date}T${time}:00+01:00`)
-      const slotEnd = new Date(slotStart.getTime() + 60 * 60 * 1000)
+      const slotEnd = new Date(slotStart.getTime() + 2 * 60 * 60 * 1000)
 
       const response = await client.freebusy.query({
         requestBody: {
@@ -171,7 +171,7 @@ class GoogleCalendarService {
 
     try {
       const startDateTime = `${params.date}T${params.time}:00+01:00`
-      const endDate = new Date(new Date(startDateTime).getTime() + 60 * 60 * 1000)
+      const endDate = new Date(new Date(startDateTime).getTime() + 2 * 60 * 60 * 1000)
 
       const leakLabels: Record<string, string> = {
         roof: 'Toiture',
