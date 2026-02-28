@@ -13,7 +13,7 @@ export default class extends BaseSchema {
       table.string('address', 300).notNullable()
       table.string('city', 100).notNullable()
       table.string('postal_code', 5).notNullable()
-      table.enum('leak_type', ['roof', 'terrace', 'wall', 'basement', 'other']).notNullable()
+      table.enum('leak_type', ['flat_roof', 'tile', 'slate', 'metal_sheet', 'other']).notNullable()
       table.enum('severity', ['minor', 'moderate', 'severe', 'emergency']).notNullable()
       table.text('description').nullable()
       table.json('photo_paths').nullable()
