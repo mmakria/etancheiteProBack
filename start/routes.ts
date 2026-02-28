@@ -25,6 +25,9 @@ router.get('/', async () => {
   return { status: 'ok', name: 'Makria API' }
 })
 
+// Serve uploaded files (auth-protected)
+router.get('/uploads/:filename', [UploadsController, 'show']).use(middleware.auth())
+
 /*
 |--------------------------------------------------------------------------
 | Public API routes
