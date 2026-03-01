@@ -18,6 +18,7 @@ const CitiesController = () => import('#controllers/cities_controller')
 const UploadsController = () => import('#controllers/uploads_controller')
 const StripeController = () => import('#controllers/stripe_controller')
 const AppointmentsController = () => import('#controllers/appointments_controller')
+const UsersController = () => import('#controllers/users_controller')
 const AuthController = () => import('#controllers/auth_controller')
 
 // Health check
@@ -110,6 +111,12 @@ router
     router.post('/cities', [CitiesController, 'store'])
     router.put('/cities/:id', [CitiesController, 'update'])
     router.delete('/cities/:id', [CitiesController, 'destroy'])
+
+    // Users management
+    router.get('/users', [UsersController, 'index'])
+    router.post('/users', [UsersController, 'store'])
+    router.put('/users/:id', [UsersController, 'update'])
+    router.delete('/users/:id', [UsersController, 'destroy'])
   })
   .prefix('/api/v1/admin')
   .use(middleware.auth())
